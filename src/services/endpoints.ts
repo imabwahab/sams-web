@@ -1,0 +1,41 @@
+export const endpoints = {
+  auth: {
+    login: "/api/auth/login",
+    register: "/api/auth/register",
+    forgotPassword: "/api/auth/forgot-password",
+    resetPassword: "/api/auth/reset-password",
+    changePassword: "/api/auth/change-password",
+    logout: "/api/auth/logout",
+    me: "/api/auth/me",
+    userAlias: "/api/auth/user",
+  },
+  doctors: {
+    list: "/api/doctors",
+    me: "/api/doctors/me",
+    detail: (id: number) => `/api/doctors/${id}`,
+    create: "/api/doctors",
+    update: (id: number) => `/api/doctors/${id}`,
+    remove: (id: number) => `/api/doctors/${id}`,
+    schedules: (id: number) => `/api/doctors/${id}/schedules`,
+  },
+  schedules: {
+    detail: (id: number) => `/api/schedules/${id}`,
+    create: "/api/schedules",
+    update: (id: number) => `/api/schedules/${id}`,
+    remove: (id: number) => `/api/schedules/${id}`,
+  },
+  appointments: {
+    list: "/api/appointments",
+    detail: (id: number) => `/api/appointments/${id}`,
+    create: "/api/appointments",
+    update: (id: number) => `/api/appointments/${id}`,
+    remove: (id: number) => `/api/appointments/${id}`,
+  },
+  admins: {
+    list: "/api/admins",
+    detail: (id: number) => `/api/admins/${id}`,
+    create: "/api/admins",
+    update: (id: number) => `/api/admins/${id}`,
+    remove: (id: number) => `/api/admins/${id}`,
+  },
+} as const;
