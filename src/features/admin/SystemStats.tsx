@@ -38,7 +38,7 @@ export default function SystemStats() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">System Statistics</h1>
-        <p className="mt-1 text-muted-foreground">Charts based on `/admins`, `/doctors`, and `/appointments`.</p>
+        <p className="mt-1 text-muted-foreground">Visual insights into platform capacity, staff activity, and appointment outcomes.</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -52,7 +52,7 @@ export default function SystemStats() {
         <Card>
           <CardHeader>
             <CardTitle>Appointment Status</CardTitle>
-            <CardDescription>Status distribution from the appointment API.</CardDescription>
+            <CardDescription>See how bookings are progressing across each appointment stage.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[280px]">
@@ -73,7 +73,7 @@ export default function SystemStats() {
         <Card>
           <CardHeader>
             <CardTitle>Resource Distribution</CardTitle>
-            <CardDescription>Counts across documented resources.</CardDescription>
+            <CardDescription>Compare the main operational records managed in the system.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[280px]">
