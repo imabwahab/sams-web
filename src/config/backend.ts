@@ -19,4 +19,3 @@ export const DEFAULT_ROLE_HOME: Record<UserRole, string> = {
   doctor: "/doctor",
   admin: "/admin",
 };
-

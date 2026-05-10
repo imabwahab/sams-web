@@ -8,7 +8,9 @@ import { apiFetch } from "@/services/api-client";
 import { endpoints } from "@/services/endpoints";
 import { normalizeApiDate } from "@/lib/date";
 
-function normalizeDoctor(input: UserResponse | (User & Partial<DoctorProfile> & { doctorProfile?: DoctorProfile | null })): UserResponse {
+function normalizeDoctor(
+  input: UserResponse | (User & Partial<DoctorProfile> & { doctorProfile?: DoctorProfile | null }),
+): UserResponse {
   if ("doctorProfile" in input && input.doctorProfile) {
     return input as UserResponse;
   }
@@ -47,17 +49,15 @@ export function getDoctors(params?: { specialization?: string; search?: string }
 }
 
 export function getDoctor(id: number) {
-  return apiFetch<UserResponse | (User & Partial<DoctorProfile>)>(
-    endpoints.doctors.detail(id),
-    { method: "GET" },
-  ).then(normalizeDoctor);
+  return apiFetch<UserResponse | (User & Partial<DoctorProfile>)>(endpoints.doctors.detail(id), {
+    method: "GET",
+  }).then(normalizeDoctor);
 }
 
 export function getCurrentDoctor() {
-  return apiFetch<UserResponse | (User & Partial<DoctorProfile>)>(
-    endpoints.doctors.me,
-    { method: "GET" },
-  ).then(normalizeDoctor);
+  return apiFetch<UserResponse | (User & Partial<DoctorProfile>)>(endpoints.doctors.me, {
+    method: "GET",
+  }).then(normalizeDoctor);
 }
 
 export function getDoctorSchedule(id: number) {
@@ -87,14 +87,32 @@ export function deleteDoctorSchedule(id: number) {
   return apiFetch<void>(endpoints.schedules.remove(id), { method: "DELETE" });
 }
 
-export function createDoctor(payload: UpdateDoctorProfileRequest & { username: string; email: string; password: string; fullName: string; phone?: string | null }) {
+export function createDoctor(
+  payload: UpdateDoctorProfileRequest & {
+    username: string;
+    email: string;
+    password: string;
+    fullName: string;
+    phone?: string | null;
+  },
+) {
   return apiFetch<UserResponse>(endpoints.doctors.create, {
     method: "POST",
     body: JSON.stringify(payload),
   }).then(normalizeDoctor);
 }
 
-export function updateDoctor(id: number, payload: Partial<UpdateDoctorProfileRequest & { username: string; email: string; fullName: string; phone?: string | null }>) {
+export function updateDoctor(
+  id: number,
+  payload: Partial<
+    UpdateDoctorProfileRequest & {
+      username: string;
+      email: string;
+      fullName: string;
+      phone?: string | null;
+    }
+  >,
+) {
   return apiFetch<UserResponse>(endpoints.doctors.update(id), {
     method: "PATCH",
     body: JSON.stringify(payload),

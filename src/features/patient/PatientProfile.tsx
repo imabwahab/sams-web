@@ -44,7 +44,11 @@ export default function PatientProfile() {
       toast({ title: "Password updated" });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to update password", description: error.message, variant: "destructive" });
+      toast({
+        title: "Failed to update password",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
@@ -52,7 +56,9 @@ export default function PatientProfile() {
     <div className="mx-auto max-w-2xl space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">My Profile</h1>
-        <p className="mt-1 text-muted-foreground">Review your personal details and keep your account secure.</p>
+        <p className="mt-1 text-muted-foreground">
+          Review your personal details and keep your account secure.
+        </p>
       </div>
 
       <Card>
@@ -84,7 +90,10 @@ export default function PatientProfile() {
       <Card>
         <CardHeader>
           <CardTitle>Account Information</CardTitle>
-          <CardDescription>Your profile details are currently read-only. Contact support if anything needs to be updated.</CardDescription>
+          <CardDescription>
+            Your profile details are currently read-only. Contact support if anything needs to be
+            updated.
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
@@ -116,13 +125,13 @@ export default function PatientProfile() {
       <Card>
         <CardHeader>
           <CardTitle>Change Password</CardTitle>
-          <CardDescription>Keep your account protected by choosing a strong, updated password.</CardDescription>
+          <CardDescription>
+            Keep your account protected by choosing a strong, updated password.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form
-            onSubmit={passwordForm.handleSubmit((data) =>
-              changePasswordMutation.mutate(data),
-            )}
+            onSubmit={passwordForm.handleSubmit((data) => changePasswordMutation.mutate(data))}
             className="space-y-6"
           >
             <div className="space-y-2">
@@ -148,4 +157,3 @@ export default function PatientProfile() {
     </div>
   );
 }
-

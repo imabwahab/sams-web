@@ -11,7 +11,14 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { queryKeys } from "@/lib/query-keys";
-import { deleteAdmin, deleteManagedDoctor, getAdmins, getManagedDoctors, updateAdmin, updateManagedDoctor } from "@/services/admin.service";
+import {
+  deleteAdmin,
+  deleteManagedDoctor,
+  getAdmins,
+  getManagedDoctors,
+  updateAdmin,
+  updateManagedDoctor,
+} from "@/services/admin.service";
 import type { User, UserResponse } from "@/types/domain";
 
 export default function UserManagement() {
@@ -36,7 +43,11 @@ export default function UserManagement() {
       toast({ title: "Admin updated" });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to update admin", description: error.message, variant: "destructive" });
+      toast({
+        title: "Failed to update admin",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
@@ -48,7 +59,11 @@ export default function UserManagement() {
       toast({ title: "Doctor updated" });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to update doctor", description: error.message, variant: "destructive" });
+      toast({
+        title: "Failed to update doctor",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
@@ -77,18 +92,24 @@ export default function UserManagement() {
   const filteredDoctors = doctors.filter(matchesSearch);
 
   if (adminsLoading || doctorsLoading) {
-    return <div className="flex min-h-[400px] items-center justify-center"><div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" /></div>;
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Management</h1>
-        <p className="mt-1 text-muted-foreground">Review admin and doctor accounts, search records, and manage active access.</p>
+        <p className="mt-1 text-muted-foreground">
+          Review admin and doctor accounts, search records, and manage active access.
+        </p>
       </div>
 
       <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           placeholder="Search by name, username, or email..."
           value={searchQuery}
@@ -122,10 +143,16 @@ export default function UserManagement() {
                   <div className="flex items-center gap-3">
                     <Switch
                       checked={admin.isActive ?? true}
-                      onCheckedChange={(isActive) => adminMutation.mutate({ id: admin.id, isActive })}
+                      onCheckedChange={(isActive) =>
+                        adminMutation.mutate({ id: admin.id, isActive })
+                      }
                       disabled={adminMutation.isPending}
                     />
-                    <Button variant="outline" onClick={() => deleteAdminMutation.mutate(admin.id)} disabled={deleteAdminMutation.isPending}>
+                    <Button
+                      variant="outline"
+                      onClick={() => deleteAdminMutation.mutate(admin.id)}
+                      disabled={deleteAdminMutation.isPending}
+                    >
                       Deactivate
                     </Button>
                   </div>
@@ -154,10 +181,16 @@ export default function UserManagement() {
                   <div className="flex items-center gap-3">
                     <Switch
                       checked={doctor.isActive ?? true}
-                      onCheckedChange={(isActive) => doctorMutation.mutate({ id: doctor.id, isActive })}
+                      onCheckedChange={(isActive) =>
+                        doctorMutation.mutate({ id: doctor.id, isActive })
+                      }
                       disabled={doctorMutation.isPending}
                     />
-                    <Button variant="outline" onClick={() => deleteDoctorMutation.mutate(doctor.id)} disabled={deleteDoctorMutation.isPending}>
+                    <Button
+                      variant="outline"
+                      onClick={() => deleteDoctorMutation.mutate(doctor.id)}
+                      disabled={deleteDoctorMutation.isPending}
+                    >
                       Deactivate
                     </Button>
                   </div>
@@ -170,4 +203,3 @@ export default function UserManagement() {
     </div>
   );
 }
-

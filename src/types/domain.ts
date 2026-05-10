@@ -4,7 +4,15 @@ export type UserRole = (typeof userRoles)[number];
 export const appointmentStatuses = ["pending", "accepted", "cancelled", "done"] as const;
 export type AppointmentStatus = (typeof appointmentStatuses)[number];
 
-export const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] as const;
+export const daysOfWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+] as const;
 export type DayOfWeek = (typeof daysOfWeek)[number];
 
 export const specializations = [

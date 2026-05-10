@@ -30,11 +30,7 @@ function unwrapPayload<T>(payload: ApiEnvelope<T> | T): T {
   return payload as T;
 }
 
-async function backendFetch<T>(
-  path: string,
-  init?: RequestInit,
-  bearerToken?: string,
-): Promise<T> {
+async function backendFetch<T>(path: string, init?: RequestInit, bearerToken?: string): Promise<T> {
   const response = await fetch(toUrl(path), {
     ...init,
     headers: {

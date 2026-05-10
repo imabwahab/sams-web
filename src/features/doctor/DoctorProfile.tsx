@@ -5,7 +5,17 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { DollarSign, KeyRound, Mail, Pencil, Phone, Shield, Stethoscope, User, X } from "lucide-react";
+import {
+  DollarSign,
+  KeyRound,
+  Mail,
+  Pencil,
+  Phone,
+  Shield,
+  Stethoscope,
+  User,
+  X,
+} from "lucide-react";
 import { useSession } from "next-auth/react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,7 +31,13 @@ import { changePassword } from "@/services/auth.service";
 import { getCurrentDoctor, updateCurrentDoctor } from "@/services/doctors.service";
 import { specializations } from "@/types/domain";
 import type { DoctorProfile as DoctorProfileType } from "@/types/domain";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const passwordSchema = z.object({
   currentPassword: z.string().min(8, "Current password is required"),
@@ -88,7 +104,11 @@ export default function DoctorProfile() {
       toast({ title: "Password updated" });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to update password", description: error.message, variant: "destructive" });
+      toast({
+        title: "Failed to update password",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
@@ -118,7 +138,11 @@ export default function DoctorProfile() {
       toast({ title: "Profile updated" });
     },
     onError: (error: Error) => {
-      toast({ title: "Failed to update profile", description: error.message, variant: "destructive" });
+      toast({
+        title: "Failed to update profile",
+        description: error.message,
+        variant: "destructive",
+      });
     },
   });
 
@@ -148,7 +172,9 @@ export default function DoctorProfile() {
     <div className="mx-auto max-w-2xl space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Doctor Profile</h1>
-        <p className="mt-1 text-muted-foreground">View and manage your professional profile details.</p>
+        <p className="mt-1 text-muted-foreground">
+          View and manage your professional profile details.
+        </p>
       </div>
 
       <Card>
@@ -182,7 +208,9 @@ export default function DoctorProfile() {
           <div className="flex items-center justify-between gap-4">
             <div>
               <CardTitle>Profile Details</CardTitle>
-              <CardDescription>Review your current information and update it when needed.</CardDescription>
+              <CardDescription>
+                Review your current information and update it when needed.
+              </CardDescription>
             </div>
             {isEditing ? (
               <Button
@@ -224,89 +252,96 @@ export default function DoctorProfile() {
               <div className="h-24 animate-pulse rounded-md bg-muted" />
             </div>
           ) : (
-          <form
-            onSubmit={handleProfileSubmit}
-            className="space-y-4"
-          >
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-muted-foreground" />
-                  Username
-                </Label>
-                <Input {...profileForm.register("username")} readOnly={!isEditing} />
-              </div>
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-muted-foreground" />
-                  Full Name
-                </Label>
-                <Input {...profileForm.register("fullName")} readOnly={!isEditing} />
-              </div>
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-muted-foreground" />
-                  Email
-                </Label>
-                <Input type="email" {...profileForm.register("email")} readOnly={!isEditing} />
-              </div>
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-muted-foreground" />
-                  Phone
-                </Label>
-                <Input {...profileForm.register("phone")} readOnly={!isEditing} />
-              </div>
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4 text-muted-foreground" />
-                  Consultation Fee
-                </Label>
-                <Input type="number" {...profileForm.register("consultationFee", { valueAsNumber: true })} readOnly={!isEditing} />
+            <form onSubmit={handleProfileSubmit} className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <User className="h-4 w-4 text-muted-foreground" />
+                    Username
+                  </Label>
+                  <Input {...profileForm.register("username")} readOnly={!isEditing} />
+                </div>
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <User className="h-4 w-4 text-muted-foreground" />
+                    Full Name
+                  </Label>
+                  <Input {...profileForm.register("fullName")} readOnly={!isEditing} />
+                </div>
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Mail className="h-4 w-4 text-muted-foreground" />
+                    Email
+                  </Label>
+                  <Input type="email" {...profileForm.register("email")} readOnly={!isEditing} />
+                </div>
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-muted-foreground" />
+                    Phone
+                  </Label>
+                  <Input {...profileForm.register("phone")} readOnly={!isEditing} />
+                </div>
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <DollarSign className="h-4 w-4 text-muted-foreground" />
+                    Consultation Fee
+                  </Label>
+                  <Input
+                    type="number"
+                    {...profileForm.register("consultationFee", { valueAsNumber: true })}
+                    readOnly={!isEditing}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Stethoscope className="h-4 w-4 text-muted-foreground" />
+                    Experience Years
+                  </Label>
+                  <Input
+                    type="number"
+                    {...profileForm.register("experienceYears", { valueAsNumber: true })}
+                    readOnly={!isEditing}
+                  />
+                </div>
               </div>
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
                   <Stethoscope className="h-4 w-4 text-muted-foreground" />
-                  Experience Years
+                  Specialization
                 </Label>
-                <Input type="number" {...profileForm.register("experienceYears", { valueAsNumber: true })} readOnly={!isEditing} />
+                {isEditing ? (
+                  <Select
+                    value={profileForm.watch("specialization")}
+                    onValueChange={(value) =>
+                      profileForm.setValue("specialization", value, { shouldDirty: true })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select specialization" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {specializations.map((specialization) => (
+                        <SelectItem key={specialization} value={specialization}>
+                          {specialization}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <Input value={profileForm.watch("specialization")} readOnly />
+                )}
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label className="flex items-center gap-2">
-                <Stethoscope className="h-4 w-4 text-muted-foreground" />
-                Specialization
-              </Label>
-              {isEditing ? (
-                <Select
-                  value={profileForm.watch("specialization")}
-                  onValueChange={(value) => profileForm.setValue("specialization", value, { shouldDirty: true })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select specialization" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {specializations.map((specialization) => (
-                      <SelectItem key={specialization} value={specialization}>
-                        {specialization}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              ) : (
-                <Input value={profileForm.watch("specialization")} readOnly />
+              <div className="space-y-2">
+                <Label>Bio</Label>
+                <Textarea {...profileForm.register("bio")} readOnly={!isEditing} />
+              </div>
+              {isEditing && (
+                <Button type="submit" className="w-full" disabled={updateProfileMutation.isPending}>
+                  {updateProfileMutation.isPending ? "Saving..." : "Save Profile"}
+                </Button>
               )}
-            </div>
-            <div className="space-y-2">
-              <Label>Bio</Label>
-              <Textarea {...profileForm.register("bio")} readOnly={!isEditing} />
-            </div>
-            {isEditing && (
-              <Button type="submit" className="w-full" disabled={updateProfileMutation.isPending}>
-                {updateProfileMutation.isPending ? "Saving..." : "Save Profile"}
-              </Button>
-            )}
-          </form>
+            </form>
           )}
         </CardContent>
       </Card>
@@ -314,13 +349,13 @@ export default function DoctorProfile() {
       <Card>
         <CardHeader>
           <CardTitle>Change Password</CardTitle>
-          <CardDescription>Keep your account secure by updating your password regularly.</CardDescription>
+          <CardDescription>
+            Keep your account secure by updating your password regularly.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form
-            onSubmit={passwordForm.handleSubmit((data) =>
-              changePasswordMutation.mutate(data),
-            )}
+            onSubmit={passwordForm.handleSubmit((data) => changePasswordMutation.mutate(data))}
             className="space-y-6"
           >
             <div className="space-y-2">

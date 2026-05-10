@@ -8,7 +8,13 @@ import { useAuth } from "@/hooks/use-auth";
 import { roleHomePath } from "@/lib/role-home";
 import type { UserRole } from "@/types/domain";
 
-export function RoleGuard({ allowedRoles, children }: { allowedRoles?: UserRole[]; children: ReactNode }) {
+export function RoleGuard({
+  allowedRoles,
+  children,
+}: {
+  allowedRoles?: UserRole[];
+  children: ReactNode;
+}) {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 

@@ -12,7 +12,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { useAuth } from "@/hooks/use-auth";
 import { useDeleteSchedule, useDoctorSchedule, useUpdateSchedule } from "@/hooks/use-doctors";
@@ -21,15 +27,44 @@ import { formatApiDate } from "@/lib/date";
 import type { Schedule } from "@/types/domain";
 
 const timeSlots = [
-  "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30", "20:00",
+  "08:00",
+  "08:30",
+  "09:00",
+  "09:30",
+  "10:00",
+  "10:30",
+  "11:00",
+  "11:30",
+  "12:00",
+  "12:30",
+  "13:00",
+  "13:30",
+  "14:00",
+  "14:30",
+  "15:00",
+  "15:30",
+  "16:00",
+  "16:30",
+  "17:00",
+  "17:30",
+  "18:00",
+  "18:30",
+  "19:00",
+  "19:30",
+  "20:00",
 ] as const;
 
-const scheduleSchema = z.object({
-  date: z.string().min(1, "Date is required"),
-  startTime: z.string().min(1),
-  endTime: z.string().min(1),
-  isAvailable: z.boolean().default(true),
-}).refine((d) => d.startTime < d.endTime, { message: "End time must be after start time", path: ["endTime"] });
+const scheduleSchema = z
+  .object({
+    date: z.string().min(1, "Date is required"),
+    startTime: z.string().min(1),
+    endTime: z.string().min(1),
+    isAvailable: z.boolean().default(true),
+  })
+  .refine((d) => d.startTime < d.endTime, {
+    message: "End time must be after start time",
+    path: ["endTime"],
+  });
 
 function isOverlapping(schedules: Schedule[], date: string, start: string, end: string) {
   return schedules.some(
@@ -64,7 +99,9 @@ export default function ManageSchedule() {
   const groupedSchedules = useMemo(() => {
     const grouped = schedules.reduce<Record<string, Schedule[]>>((acc, schedule) => {
       const key = schedule.date;
-      acc[key] = [...(acc[key] ?? []), schedule].sort((a, b) => a.startTime.localeCompare(b.startTime));
+      acc[key] = [...(acc[key] ?? []), schedule].sort((a, b) =>
+        a.startTime.localeCompare(b.startTime),
+      );
       return acc;
     }, {});
 
@@ -73,7 +110,9 @@ export default function ManageSchedule() {
 
   const onSubmit = (data: z.infer<typeof scheduleSchema>) => {
     if (isOverlapping(schedules, data.date, data.startTime, data.endTime)) {
-      setDuplicateError(`A slot already exists on ${data.date} that overlaps with ${data.startTime} - ${data.endTime}`);
+      setDuplicateError(
+        `A slot already exists on ${data.date} that overlaps with ${data.startTime} - ${data.endTime}`,
+      );
       return;
     }
 
@@ -93,17 +132,26 @@ export default function ManageSchedule() {
   };
 
   if (isLoading) {
-    return <div className="flex min-h-[400px] items-center justify-center"><div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" /></div>;
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" />
+      </div>
+    );
   }
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Manage Schedule</h1>
-          <p className="mt-1 text-muted-foreground">Set your available date-based time slots for appointments.</p>
+          <p className="mt-1 text-muted-foreground">
+            Set your available date-based time slots for appointments.
+          </p>
         </div>
-        <Button onClick={() => setShowForm((value) => !value)}><Plus className="mr-2 h-4 w-4" />Add Time Slot</Button>
+        <Button onClick={() => setShowForm((value) => !value)}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add Time Slot
+        </Button>
       </div>
 
       {showForm && (
@@ -114,37 +162,77 @@ export default function ManageSchedule() {
           </CardHeader>
           <CardContent>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {duplicateError && <Alert variant="destructive"><AlertCircle className="h-4 w-4" /><AlertDescription>{duplicateError}</AlertDescription></Alert>}
+              {duplicateError && (
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>{duplicateError}</AlertDescription>
+                </Alert>
+              )}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                 <div className="space-y-2">
                   <Label>Date</Label>
-                  <Input type="date" value={form.watch("date")} onChange={(event) => form.setValue("date", event.target.value)} />
+                  <Input
+                    type="date"
+                    value={form.watch("date")}
+                    onChange={(event) => form.setValue("date", event.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label>Start Time</Label>
-                  <Select value={form.watch("startTime")} onValueChange={(value) => form.setValue("startTime", value)}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>{timeSlots.map((time) => <SelectItem key={time} value={time}>{time}</SelectItem>)}</SelectContent>
+                  <Select
+                    value={form.watch("startTime")}
+                    onValueChange={(value) => form.setValue("startTime", value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeSlots.map((time) => (
+                        <SelectItem key={time} value={time}>
+                          {time}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label>End Time</Label>
-                  <Select value={form.watch("endTime")} onValueChange={(value) => form.setValue("endTime", value)}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>{timeSlots.map((time) => <SelectItem key={time} value={time}>{time}</SelectItem>)}</SelectContent>
+                  <Select
+                    value={form.watch("endTime")}
+                    onValueChange={(value) => form.setValue("endTime", value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {timeSlots.map((time) => (
+                        <SelectItem key={time} value={time}>
+                          {time}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label>Available</Label>
                   <div className="flex h-10 items-center">
-                    <Switch checked={form.watch("isAvailable")} onCheckedChange={(value) => form.setValue("isAvailable", value)} />
-                    <span className="ml-2 text-sm text-muted-foreground">{form.watch("isAvailable") ? "Active" : "Inactive"}</span>
+                    <Switch
+                      checked={form.watch("isAvailable")}
+                      onCheckedChange={(value) => form.setValue("isAvailable", value)}
+                    />
+                    <span className="ml-2 text-sm text-muted-foreground">
+                      {form.watch("isAvailable") ? "Active" : "Inactive"}
+                    </span>
                   </div>
                 </div>
               </div>
               <div className="flex gap-3">
-                <Button type="submit" disabled={createMutation.isPending}>{createMutation.isPending ? "Saving..." : "Save Schedule"}</Button>
-                <Button type="button" variant="outline" onClick={() => setShowForm(false)}>Cancel</Button>
+                <Button type="submit" disabled={createMutation.isPending}>
+                  {createMutation.isPending ? "Saving..." : "Save Schedule"}
+                </Button>
+                <Button type="button" variant="outline" onClick={() => setShowForm(false)}>
+                  Cancel
+                </Button>
               </div>
             </form>
           </CardContent>
@@ -177,16 +265,24 @@ export default function ManageSchedule() {
                   <div className="flex flex-wrap items-center gap-2">
                     {dateSchedules.map((schedule) => (
                       <div key={schedule.id} className="flex items-center gap-2">
-                        <Badge variant={schedule.isAvailable !== false ? "default" : "secondary"} className="flex items-center gap-1">
+                        <Badge
+                          variant={schedule.isAvailable !== false ? "default" : "secondary"}
+                          className="flex items-center gap-1"
+                        >
                           <Clock className="h-3 w-3" />
                           {schedule.startTime} - {schedule.endTime}
-                          {schedule.isAvailable !== false && <CheckCircle2 className="ml-1 h-3 w-3 text-emerald-300" />}
+                          {schedule.isAvailable !== false && (
+                            <CheckCircle2 className="ml-1 h-3 w-3 text-emerald-300" />
+                          )}
                         </Badge>
                         <Button
                           variant="ghost"
                           size="icon"
                           className="h-8 w-8 text-destructive hover:text-destructive"
-                          onClick={() => user?.id && deleteMutation.mutate({ id: schedule.id, doctorId: user.id })}
+                          onClick={() =>
+                            user?.id &&
+                            deleteMutation.mutate({ id: schedule.id, doctorId: user.id })
+                          }
                           disabled={deleteMutation.isPending}
                         >
                           <Trash2 className="h-4 w-4" />
