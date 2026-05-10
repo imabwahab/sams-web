@@ -23,7 +23,9 @@ export default function AppShell({ children }: { children: ReactNode }) {
       <Sidebar />
       <MobileHeader />
       <main className="flex-1 overflow-y-auto px-4 pb-24 pt-20 sm:px-6 md:px-8 lg:py-8">
-        <div className="mx-auto max-w-6xl animate-in fade-in slide-in-from-bottom-4 duration-500">{children}</div>
+        <div className="mx-auto max-w-6xl duration-500 animate-in fade-in slide-in-from-bottom-4">
+          {children}
+        </div>
       </main>
       <BottomNav />
     </div>

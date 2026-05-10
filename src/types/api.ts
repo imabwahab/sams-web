@@ -61,9 +61,7 @@ export type UpdateDoctorProfileRequest = UpdateUserProfileRequest & {
   isActive?: boolean;
 };
 
-export type UpdateCurrentDoctorRequest = Partial<
-  Omit<UpdateDoctorProfileRequest, "isActive">
->;
+export type UpdateCurrentDoctorRequest = Partial<Omit<UpdateDoctorProfileRequest, "isActive">>;
 
 export type UpdateAdminRequest = UpdateUserProfileRequest & {
   password?: string;

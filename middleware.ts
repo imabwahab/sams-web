@@ -9,9 +9,7 @@ import {
 import type { UserRole } from "@/types/domain";
 
 function matchesPrefix(pathname: string, prefixes: readonly string[]) {
-  return prefixes.some(
-    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-  );
+  return prefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
 }
 
 function getRequiredRole(pathname: string): UserRole | null {
