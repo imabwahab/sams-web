@@ -33,7 +33,7 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Admin Dashboard</h1>
-        <p className="mt-1 text-muted-foreground">Overview of admins, doctors, and appointments from the documented API.</p>
+        <p className="mt-1 text-muted-foreground">A quick view of staff access, provider activity, and appointment performance across the platform.</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Admins</CardTitle>
-            <CardDescription>Staff loaded from `/api/admins`.</CardDescription>
+            <CardDescription>Monitor administrative staff accounts and current access status.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Active</span><Badge variant="secondary">{activeAdmins.length}/{admins.length}</Badge></div>
@@ -63,7 +63,7 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Doctors</CardTitle>
-            <CardDescription>Doctors loaded from `/api/doctors`.</CardDescription>
+            <CardDescription>Track registered healthcare providers and their availability status.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Active</span><Badge variant="secondary">{activeDoctors.length}/{doctors.length}</Badge></div>
@@ -79,7 +79,7 @@ export default function AdminDashboard() {
         <Card>
           <CardHeader>
             <CardTitle>Appointments</CardTitle>
-            <CardDescription>Summary from `/api/appointments`.</CardDescription>
+            <CardDescription>Review appointment requests and their latest booking outcomes.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center justify-between"><span className="text-sm text-muted-foreground">Pending</span><Badge variant="secondary">{appointments.filter((appointment) => appointment.status === "pending").length}</Badge></div>

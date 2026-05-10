@@ -84,7 +84,7 @@ export default function UserManagement() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Management</h1>
-        <p className="mt-1 text-muted-foreground">Admin and doctor resources mapped directly to the backend APIs.</p>
+        <p className="mt-1 text-muted-foreground">Review admin and doctor accounts, search records, and manage active access.</p>
       </div>
 
       <div className="relative">
